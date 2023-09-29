@@ -15,6 +15,10 @@ guides, references and more.
 
   Try the [Getting started guide](getting-started).
 
+- **Want to learn more about the .fensak repository?**
+
+  Refer to the [.fensak reference](dotfensak-repo).
+
 - **Looking to write custom rules?**
 
   Check out the [Writing rules scripts guide](writing-rules).

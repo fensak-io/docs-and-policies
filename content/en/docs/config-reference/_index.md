@@ -64,6 +64,31 @@ The number of unique approvals from users with write access that are required to
 When omitted, defaults to 1.
 
 
+**requiredApprovalsForTrustedUsers** *(optional)*
+
+The number of unique approvals from users with write access that are required to pass the check for pull requests opened
+by trusted users when the auto-approve rule fails.
+
+When omitted, defaults to the value set in `requiredApprovals`.
+
+
+**requiredApprovalsForMachineUsers** *(optional)*
+
+The number of unique approvals from human users with write access that are required to pass the check for pull requests
+opened by machine users (GitHub Apps, or any user labeled as a machine user in the machineUsers top level key) when the
+auto-approve rule fails.
+
+When omitted, defaults to the value set in `requiredApprovals`.
+
+
+### Machine Users (optional)
+
+A list of user logins that map to machine users in your account. This should not include GitHub Apps, as those are
+automatically labeled as machine users.
+
+When omitted or empty, `requiredApprovalsForMachineUsers` will only apply to PRs opened by GitHub Apps.
+
+
 ## Supported config file types
 
 The following file types are supported for the Fensak config:

@@ -26,6 +26,43 @@ the schema file for information on what options are available, what they are, an
 You can also use a tool like [ajv-cli](https://www.npmjs.com/package/ajv-cli) to validate your configuration against the
 provided schema to make sure it conforms.
 
+The following is an overview of the schema.
+
+### Repo config map
+
+The main entry in the Fensak config is the `repos` key. This contains a map from repos in your Organization to the
+corresponding rules configuration. The key of the map should match a corresponding GitHub repository slug in your
+Organization. For example, the following is a repository config for the repo `my-repo` in the Organization:
+
+```yaml
+repos:
+  my-repo:
+    ruleFile: rules/sample.ts
+```
+
+Each entry in the map supports the following fields:
+
+**ruleFile**
+
+The path (relative to the repo root) to the file to use for the rules source.
+
+
+**ruleLang** *(optional)*
+
+The language that the rules source is written in. This must be one of:
+- `es5`: Rules written in JavaScript ECMAScript 5.1.
+- `es6`: Rules written in JavaScript ECMAScript 6.
+- `ts`: Rules written in TypeScript.
+
+When omitted, the language is derived from the source file extension. Note that we will always assume ES6 for js files.
+
+
+**requiredApprovals** *(optional)*
+
+The number of unique approvals from users with write access that are required to pass the check when the auto-approve rule fails.
+
+When omitted, defaults to 1.
+
 
 ## Supported config file types
 

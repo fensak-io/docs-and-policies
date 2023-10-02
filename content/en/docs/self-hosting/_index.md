@@ -8,13 +8,12 @@ weight: 40
 We currently do not officially support running a self-hosted instance of Fensak. What this means is that we do not
 make any guarantees, provide official support, or documentation about how to run a self-hosted version of Fensak.
 
-However, as long as you comply with [the licensing terms](https://github.com/fensak-io/fensak/#license) of Fensak, there
-is nothing stopping you from running a self-hosted version of Fensak.
+However, since [the source](https://github.com/fensak-io/fensak) is available, there is nothing stopping you from
+running a self-hosted version of Fensak, provided you comply with [the licensing
+terms](https://github.com/fensak-io/fensak/#license).
 
-In other words, you are free to set up a self-hosted instance of Fensak as long as you comply with the specific license
-you are licensing Fensak under, and if you can set it up on your own without our help.
-
-This may change in the future as there is more demand for such implementations.
+To put it simply, you are free to set up a self-hosted instance as long as you can figure it out on your own and you
+comply with the license terms.
 
 > **NOTE**
 >

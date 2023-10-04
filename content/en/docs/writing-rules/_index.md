@@ -33,10 +33,13 @@ experiment with different rule implementations.
 ## What languages are supported
 
 The core rules engine only supports code written in JavaScript (and more specifically, ECMAScript 5.1 aka ES5).
-You can write rules in any language that can be compiled down to ES5, as long as you store and reference the compiled
-ES5 version of the code in the `.fensak` repository. However, Fensak includes built-in support to compile ECMAScript 6
-(aka ES6) and TypeScript, allowing your rules to be implemented directly in those languages without a separate compile
-step.
+In addition, Fensak includes built-in support to compile ECMAScript 6 (aka ES6) and TypeScript, allowing your rules to
+be implemented directly in those languages without a separate compile step.
+
+If you wish to write your rules in another language that can be compiled down to ES5 (e.g.,
+[ReScript](https://rescript-lang.org/)), you must precompile your code down to ES5 and check the compiled version in the
+`.fensak` repository (see the [with-dependencies
+example](https://github.com/fensak-io/fensak-rules-examples/tree/main/with-dependencies)).
 
 In summary, the following languages are natively supported by Fensak without explicit compilation:
 

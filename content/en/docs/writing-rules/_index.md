@@ -11,18 +11,21 @@ language support, available functions that you can use in your rules funtions, a
 
 ## The rules engine
 
-At the heart of Fensak is the approval rules engine. The approval rules engine is powered with a hermetic JavaScript
-interpreter ([NeilFraser/JS-Interpreter](https://github.com/NeilFraser/JS-Interpreter), trusted and used by many
-including Google for secure JS runtimes in JS). The JS interpreter provides a secure isolated runtime for us to execute
-arbitrary user defined code, with stronger sandboxing guarantees than plain JS sandboxing or isolates. Naturally, this
-security introduces limits on the rule functions that make certain kinds of operations impossible.
+At the heart of Fensak is [reng](https://github.com/fensak-io/reng), the approval rules engine. The approval rules
+engine is powered with a hermetic JavaScript interpreter
+([NeilFraser/JS-Interpreter](https://github.com/NeilFraser/JS-Interpreter), trusted and used by many including Google
+for secure JS runtimes in JS). The JS interpreter provides a secure isolated runtime for us to execute arbitrary user
+defined code, with stronger sandboxing guarantees than plain JS sandboxing or isolates. Naturally, this security
+introduces limits on the rule functions that make certain kinds of operations impossible.
 
 In general, you have full access to all the *computational* aspects of JavaScript, including regular expressions. In
 other words, anything that requires access to the outside environment (such as network, file system, subprocesses, etc)
 will not be made available to your function.
 
 If you want to know whether a specific function is available in the runtime or not, import the
-[runRule](https://github.com/fensak-io/fensak/blob/main/udr/interpreter.ts) from `fensak-io/fensak` and give it a try.
+[runRule](https://github.com/fensak-io/reng/blob/main/src/engine/interpreter.ts) from `fensak-io/reng` and give it a
+try.
+
 Refer to the [Testing your rule functions](#testing-your-rule-function) section for setting up a test environment to
 experiment with different rule implementations.
 
@@ -46,8 +49,9 @@ In summary, the following languages are natively supported by Fensak without exp
 
 Fensak rules are implemented as a single JavaScript function (must be named `main`) that takes in a list of
 `IPatch` (see
-[fensak-io/fensak/patch/patch_types.ts](https://github.com/fensak-io/fensak/blob/main/patch/patch_types.ts)) objects and
-returns a `boolean` indicating whether the change set should be approved. The function signature is as follows:
+[fensak-io/reng/src/engine/patch_types.ts](https://github.com/fensak-io/reng/blob/main/src/engine/patch_types.ts))
+objects and returns a `boolean` indicating whether the change set should be approved. The function signature is as
+follows:
 
 ```typescript
 function main(inp: IPatch[]): boolean
@@ -76,21 +80,28 @@ still use types to check your code in development and testing. To make this work
 with the keywords `fensak remove-start` and `fensak remove-end`. Fensak will strip the code of everything inbetween
 these tags before feeding through the engine so that the engine doesn't complain about the `import` keyword.
 
-Here is an example of importing the `IPatch` and `ILineDiff` types (in Deno) so that you can typecheck your access to
+Here is an example of importing the `IPatch` and `ILineDiff` types so that you can typecheck your access to
 the attributes of the `inp` object:
 
+**Deno**
 ```typescript
 // fensak remove-start
 import type {
   ILineDiff,
   IPatch,
-} from "https://raw.githubusercontent.com/fensak-io/fensak/v0.0.2/patch/patch_types.ts";
+} from "npm:@fensak-io/reng@^1.0.7";
 // fensak remove-end
 ```
 
-While the example uses Deno, you can use Node.js and `tsc`/`tsserver` as well for implementing the typechecks in
-development and testing. The rules engine runtime does not depend on Deno and so as long as the type imports are
-stripped, any flavor of TypeScript will work.
+**TypeScript (NodeJS)**
+```typescript
+// fensak remove-start
+import type {
+  ILineDiff,
+  IPatch,
+} from "@fensak-io/reng";
+// fensak remove-end
+```
 
 To close this section out, here is the code for the `sample.ts` file in the `.fensak` template repository:
 
@@ -103,7 +114,7 @@ To close this section out, here is the code for the `sample.ts` file in the `.fe
 // fensak remove-start
 import type {
   IPatch,
-} from "https://raw.githubusercontent.com/fensak-io/fensak/v0.0.2/patch/patch_types.ts";
+} from "npm:@fensak-io/reng@^1.0.7";
 // fensak remove-end
 
 // deno-lint-ignore no-unused-vars
@@ -150,13 +161,20 @@ will behave in the same way in dev/test and in production.
 >
 > Refer to our [License FAQ](/docs/license-faq) section for more details on the dual license, and which one to use when.
 
-Currently we only offer a pure [Deno](https://deno.com/) compatible version of the engine. We use some Deno specific
-features in the engine, such as full URL path imports. This means that for now, you will have to write your tests in
-Deno and not in Node.js. However, in the near future we plan on making this available as a pure typescript package on
-NPM. Refer to this [fensak-io/fensak issue](https://github.com/fensak-io/fensak/issues/28) to stay notified when this is
-implemented.
+The core rules engine ([reng](https://github.com/fensak-io/reng)) is available as an npm package under
+[@fensak-io/reng](https://www.npmjs.com/package/@fensak-io/reng). The library offers helper functions for compiling and
+running the rules, and is the same code that is used by the Fensak service. This means that you can import this into
+your test cases to run your rules under the same engine as the Fensak service, allowing you to see how the rules will
+behave on the platform itself.
 
-In the meantime, your only option is to use Deno.
+You can use any JavaScript runtime and framework that supports npm to write your tests. Here we offer two popular
+runtimes and frameworks you can use:
+
+- [Writing tests for your rules using Deno](#writing-tests-for-your-rules-using-deno)
+- [Writing tests for your rules using Jest](#writing-tests-for-your-rules-using-jest)
+
+
+### Writing tests for your rules using Deno
 
 You can use standard Deno conventions for testing your rules code. Start by creating a file named
 `<RULE_FILENAME>_test.ts`. For example, if your rule is in the file `rule.ts`, the test file should be named
@@ -173,7 +191,7 @@ import {
   PatchOp,
   RuleLogMode,
   runRule,
-} from "https://raw.githubusercontent.com/fensak-io/fensak/v0.0.2/mod.ts";
+} from "npm:@fensak-io/reng@^1.0.7";
 
 const __dirname = new URL(".", import.meta.url).pathname;
 const rawRuleFn = await Deno.readTextFile(`${__dirname}/rules.ts`);
@@ -252,4 +270,120 @@ environment access as required by the engine. The following flags should allow y
 
 ```
 deno test --allow-env --allow-read --allow-net
+```
+
+
+### Writing tests for your rules using Jest
+
+Since `@fensak-io/reng` is an ordinary npm package, we can use any JavaScript testing framework to write our rules
+tests. Here we show an example of using [jest](https://jestjs.io/) but any will do.
+
+We will be writing our tests for `jest` using TypeScript, so we need to start by configuring our project with a few
+configuration files.
+
+At a minimum, you will need:
+- `package.json` file to specify dependencies.
+- `tsconfig.json` file to specify compiler options for TypeScript.
+- `jest.config.cjs` file to specify configurations for `jest`, namely to compile TypeScript.
+
+Check out the [json-config-test](https://github.com/fensak-io/fensak-rules-examples/tree/main/json-config-jest) example
+in the `fensak-io/fensak-rules-examples` repository for an example of each of these files.
+
+> **TIP**
+>
+> We recommending using a linter and code formatter, such as [eslint](https://eslint.org/) and
+> [prettier](https://prettier.io/). Our `json-config-jest` example in has an example of setting these tools up alongside
+> `jest` for testing.
+
+Once you have all the tools, you can start writing your test. Start by creating a file named `<RULE_FILENAME>.test.ts`.
+For example, if your rule is in the file `rule.ts`, the test file should be named `rule.test.ts`.
+
+In your test file, start with some boilerplate code to load the rule into the test context:
+
+```typescript
+import fs from "node:fs";
+
+import {
+  compileRuleFn,
+
+  // NOTE: other imports are used later
+  LineOp,
+  PatchOp,
+  RuleLogMode,
+  runRule,
+} from "@fensak-io/reng";
+
+const ruleFnSrc = fs.readFileSync(`${__dirname}/rules.ts`, "utf8");
+const ruleFn = compileRuleFn(ruleFnSrc, RuleFnSourceLang.Typescript);
+```
+
+This code:
+- Uses the `__dirname` keyword for node to create a stable path to the rule source file. In this case the rule source is
+  in TypeScript, but the rule source can be anything that the engine supports.
+- Compiles the TypeScript based raw rule function down to ES5 using the `compileRuleFn` function offered by Fensak.
+
+Once you have the rule, you can start testing the rule function behavior in the Fensak engine. You can import the
+`runRule` function, and then evaluate the results against a bunch of patch data.
+
+For example, here is a sample test that creates a mock patch containing a change to the README file:
+
+```typescript
+// ... other code omitted for brevity ...
+
+import { expect, test } from "@jest/globals";
+
+test("rule rejects change to README file", async () => {
+  // A fake patch with a hunk updating the title of the README.md file from "Fensak Docs" to "Fensak Documentation".
+  const readmePatch = {
+    contentsID: "asdf-1234",
+    path: "README.md",
+    op: PathOp.Modified,
+    additions: 1,
+    deletions: 0,
+    diff: [{
+      originalStart: 1,
+      originalLength: 1,
+      updatedStart: 1,
+      updatedLength: 1,
+      diffOperations: [{
+        op: LineOp.Modified,
+        text: "# Fensak Docs",
+        newText: "# Fensak Documentation",
+      }],
+    }],
+  }
+
+  const result = await runRule(ruleFn, [readmePatch], {
+    // Output console calls to stderr
+    { logMode: RuleLogMode.Console },
+  });
+  expect(result.approve).toBe(false);
+});
+```
+
+In this test, we run the rule through a mock patch that we create by hand and check the results to verify that the patch
+was rejected.
+
+Generating these patch objects can be verbose and tedious, so you can also use the GitHub related functions to pull a
+patch from an actual pull request, like so:
+
+```typescript
+// ... other code omitted for brevity ...
+
+import { Octokit } from "@octokit/rest";
+
+test("rule rejects test PR 1", async () => {
+  const patches = await patchFromGitHubPullRequest(octokit, {
+    owner: "fensak-io",
+    name: "test-fensak-rules-engine",
+  }, 1);
+  const result = await runRule(ruleFn, patches.patchList, { logMode: RuleLogMode.Console });
+  expect(result.approve).toBe(false);
+})
+```
+
+Once you have these test functions written, you can run them with `jest`:
+
+```
+npx jest
 ```

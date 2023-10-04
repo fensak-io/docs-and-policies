@@ -220,7 +220,7 @@ Deno.test("rule rejects change to README file", async () => {
   const readmePatch = {
     contentsID: "asdf-1234",
     path: "README.md",
-    op: PathOp.Modified,
+    op: PatchOp.Modified,
     additions: 1,
     deletions: 0,
     diff: [{
@@ -337,7 +337,7 @@ test("rule rejects change to README file", async () => {
   const readmePatch = {
     contentsID: "asdf-1234",
     path: "README.md",
-    op: PathOp.Modified,
+    op: PatchOp.Modified,
     additions: 1,
     deletions: 0,
     diff: [{

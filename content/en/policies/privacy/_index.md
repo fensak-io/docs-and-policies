@@ -5,7 +5,7 @@ type: "docs"
 no_list: true
 ---
 
-*Last updated: Sep 29th, 2023*
+*Last updated: Oct 13th, 2023*
 
 The privacy of your data — and it is your data, not ours! — is a big deal to us. In this policy, we lay out:
 
@@ -36,6 +36,19 @@ provide the intended services.
 Rest assured, we will never sell your personal information to third parties, nor will we use your name or company
 in marketing materials without your permission.
 
+### Billing Information
+
+When you join Fensak, we'll ask for your payment details and billing address. Your credit card information
+goes straight to our Merchant of Record ([Paddle](https://paddle.com)), not passing through Fensak servers. Our Merchant
+of Record saves the transaction and billing details to help with account history, invoicing, and billing support. We
+also save a record of the transaction identifier on our servers, to help with subscription management.
+
+Our Merchant of Record also keeps your billing address to charge you for our service, figure out any sales tax, send
+invoices, and spot any fraudulent transactions.
+
+For more information on how our Merchant of Record uses your information, refer to [their Privacy
+Policy](https://www.paddle.com/legal/gdpr).
+
 ### Product Interactions
 
 We have access to all events related to Pull Requests in your Organization through the installed GitHub app. These pull
@@ -55,8 +68,9 @@ service providers. This data is deleted when you cancel and uninstall the GitHub
 
 ### Geolocation Data
 
-We log the IP address you use when accessing our websites, such as [https://fensak.io](https://fensak.io) and
-[https://docs.fensak.io](https://docs.fensak.io) for security and fraud prevention purposes.
+We log the IP address you use when accessing our websites, such as [https://fensak.io](https://fensak.io),
+[https://dash.fensak.io](https://dash.fensak.io), and [https://docs.fensak.io](https://docs.fensak.io) for security and
+fraud prevention purposes.
 
 ### Website Analytics
 
@@ -118,6 +132,7 @@ and provide the Services to you. The following is a list of third-party subproce
 * [GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-data-protection-agreement). Version control
   software, help forum, and end user platform.
 * [Carrd](https://carrd.co/docs/general/privacy). Landing page provider.
+* [Paddle](https://www.paddle.com/legal/gdpr). Merchant of record.
 
 No Fensak human looks at your data except with your express permission for limited purposes, such as an
 error that stops an automated process from working and requires manual intervention to fix. These are rare cases,

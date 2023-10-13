@@ -5,19 +5,30 @@ no_list: true
 weight: 10
 ---
 
-In this section we cover installing the Fensak GitHub App (with a Marketplace Plan) and the steps needed to get started
+In this section we cover subscribing to Fensak, installing the Fensak GitHub App, and the steps needed to get started
 protecting your GitOps branches with support for Continuous Delivery.
 
-## Install the Fensak GitHub App
+> **Tip**
+>
+> If you wish to try out the Fensak rules engine before subscribing, you can do so by using [the rules
+> engine](https://github.com/fensak-io/reng) locally. Refer to our [Writing rules guide](/docs/writing-rules) for more
+> information.
 
-The Fensak GitHub App can be purchased and installed in your GitHub Organization through the offering on the [GitHub
-Marketplace](https://github.com/marketplace). When you install, you will start a 14-day free trial period, after which
-you will be automatically charged by the GitHub Marketplace. The charge will appear on your GitHub Organization invoice.
+## Subscribe to Fensak and install the Fensak GitHub App
+
+Our hosted Fensak service requires an active subscription plan to start monitoring your pull requests. You can start a
+free trial for Fensak through our [dashboard service](https://dash.fensak.io).
+
+Our dashboard allows you to manage your subscription, including assinging multiple GitHub Organizations to an existing
+Pro subscription.
 
 > **NOTE**
 >
-> Fensak does not offer a free plan beyond the free trial. The Pro tier paid subscription listed on the [pricing
+> Fensak does not offer a free plan beyond the free trial. A Base or Pro tier paid subscription listed on the [pricing
 > page](https://fensak.io/#pricing) is required for continuous access.
+
+Once you subscribe, the dashboard will redirect you to GitHub so that you can install the GitHub App in your
+Organization.
 
 When installing the App, you have [the option to restrict which repositories Fensak has access
 to](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party#difference-between-installation-and-authorization).
@@ -25,7 +36,7 @@ Ensure that Fensak has access to repositories that you want Fensak to monitor, i
 repository in your Organization. It is a good practice to always restrict the repositories that third-party GitHub Apps
 have access to to only those that are necessary for the App to function.
 
-Once you subscribe on the GitHub Marketwplace and install the GitHub App, you are ready to get started using Fensak!
+At this point, you are ready to get started using Fensak!
 
 Let's define our first rule and link it to a repository.
 

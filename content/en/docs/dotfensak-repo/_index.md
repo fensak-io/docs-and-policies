@@ -12,14 +12,26 @@ account for a service.
 
 This guide provides an overview of the `.fensak` repository and what is expected to be included in it.
 
-## Template repository
+## Template repositories
 
-To make it easy to get started, we offer a template repository
-([fensak-io/dotfensak-template](https://github.com/fensak-io/dotfensak-template)) that contains everything needed to
+To make it easy to get started, we offer template repositories that contain everything needed to
 configure the `.fensak` repo. We recommend creating the `.fensak` repository in your Org by using the template repo. Refer to
 the [official GitHub
 documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
 for instructions on how to use a template repo.
+
+Here are the template repositories that we currently have available:
+
+- [fensak-io/dotfensak-deno-template](https://github.com/fensak-io/dotfensak-deno-template): TypeScript based rules and
+  tests, using [Deno](https://deno.com/) as the testing/linting runtime.
+- [fensak-io/dotfensak-jest-template](https://github.com/fensak-io/dotfensak-jest-template): JavaScript based rules and
+  tests, using [Node](https://nodejs.org/en) with [Jest](https://jestjs.io/) as the testing runtime, and
+  [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) as the linting runtime.
+- [fensak-io/dotfensak-ts-jest-template](https://github.com/fensak-io/dotfensak-ts-jest-template): TypeScript based
+  rules and tests, using [Node](https://nodejs.org/en) with [Jest](https://jestjs.io/) as the testing runtime, and
+  [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) as the linting runtime.
+
+You can use any one of the template repositories to kick start your `.fensak` repo.
 
 Refer to the [Create a .fensak
 repository](/docs/getting-started/#create-a-fensak-repository-in-your-github-organization) section of the `Getting

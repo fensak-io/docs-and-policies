@@ -5,7 +5,7 @@ type: "docs"
 no_list: true
 ---
 
-*Last updated: Sep 29th, 2023*
+*Last updated: Oct 13th, 2023*
 
 Thank you for using Fensak! This Terms of Service applies to the Fensak Service and related GitHub app.
 
@@ -46,39 +46,39 @@ feedback](https://github.com/orgs/fensak-io/discussions).
 ## Payment, Plan Changes, Usage, and No Refunds
 
 1. For our free trial, we explain the length of trial and included services when you sign up. After the trial period,
-   your GitHub Organization will automatically be billed the subscription charge by the GitHub Marketplace.
+   your Billing Account will automatically be billed the subscription charge by Our Merchant of Record
+   ([Paddle](https://paddle.com)).
 
-2. There is only one paid plan. The paid plan is a recurring subscription on GitHub Marketplace that provides access to
-   the core features of the Service.
+2. We offer multiple paid plans with differing feature sets and payment cycles. Each paid plan is a recurring monthly or
+   annual subscription that provides access to the core features of the Service. The feature sets of each plan are
+   described in [the pricing table](https://fensak.io/#pricing).
 
-3. The paid plan includes a limit on the number of repositories that will be monitored, as described in [the pricing
+3. Each paid plan includes a limit on the number of repositories that will be monitored, as described in [the pricing
    table](https://fensak.io/#pricing). Any configuration that exceeds this limit will be rejected by the system and you
-   will not be able to use the Service until the number of repos in the configuration is reduced.
+   will not be able to use the Service until the number of repos in the configuration is reduced. For any plan that
+   allows multiple GitHub Organizations, the repository limit is cumulative across all associated GitHub Organizations.
 
-4. Our payment and billing process is conducted through [GitHub
-   Marketplace](https://docs.github.com/en/billing/managing-billing-for-github-marketplace-apps/about-billing-for-github-marketplace).
-   We do not directly collect any form of payments from you. You are responsible for all fees, including taxes, levies,
-   or duties imposed by taxing authorities. All charges will appear on your GitHub Organization invoice. See [GitHub's
-   documentation on marketplace
-   billing](https://docs.github.com/en/billing/managing-billing-for-github-marketplace-apps/about-billing-for-github-marketplace)
-   for more details.
+4. Our payment process is conducted by our Merchant of Record ([Paddle](https://www.paddle.com/)). All fees are
+   inclusive of all taxes, levies, or duties imposed by taxing authorities. Paddle will collect those taxes on behalf of
+   the taxing authorities and remit those taxes to them. All charges will originate from Paddle and will show as
+   `PADDLE.NET* FENSAKLLC` on your bank/card statement. See [Paddle's Terms of
+   Service](https://www.paddle.com/legal/terms) for more details.
 
 5. All purchases are final and non-refundable. There will be no refunds or credits for partial months of service,
    downgrade refunds, or refunds for months unused with an open Account.
 
 ## Cancellation and Termination
 
-1. You are solely responsible for properly canceling your account. GitHub Marketplace provides a simple
-   no-questions-asked cancellation link from your GitHub account settings page. You can find instructions for how to
-   cancel your account in the [GitHub
-   documentation](https://docs.github.com/en/billing/managing-billing-for-github-marketplace-apps/canceling-a-github-marketplace-app).
-   An email or phone request to cancel your account is not automatically considered cancellation. If you need help
-   cancelling your account, you can always [contact us](mailto:support@fensak.io).
+1. You are solely responsible for properly canceling your account. We provide a simple no-questions-asked cancellation
+   link from your account settings page on our [dashboard service](https://dash.fensak.io). You can find instructions
+   for how to cancel your account in our documentation. An email or phone request to cancel your account is not
+   automatically considered cancellation. If you need help cancelling your account, you can always [contact
+   us](mailto:support@fensak.io).
 
 2. Account cancellation takes effect at the end of the current billing cycle, unless you are cancelling during the free
-   trial period, in which case cancellation takes effect immediately. You will lose access to our Services when the
-   cancellation takes effect. Our Services will no longer monitor or issue checks on your pull requests. Your data will
-   also be deleted at the time the cancellation takes effect.
+   trial period, in which case cancellation takes effect at the end of the trial period. You will lose access to our
+   Services when the cancellation takes effect. Our Services will no longer monitor or issue checks on your pull
+   requests. Your data will be deleted at the time you uninstall our GitHub App from your GitHub Organization.
 
 3. We have the right to terminate your account and refuse any and all current or future use of our Services for any
    reason at any time. Termination will result in immediate loss of access to our Services. We also reserve the right to
@@ -101,7 +101,7 @@ feedback](https://github.com/orgs/fensak-io/discussions).
 
 1. Your use of the Services is at your sole risk. We provide these Services on an “as is” and “as available” basis. We
    do not offer service-level agreements for most of our Services but do take uptime of our applications seriously.
-   Visit [https://status.fensak.io](https://status.fensak.io) to see the status of our Service.
+   Visit [https://fensak.instatus.com/](https://fensak.instatus.com/) to see the status of our Service.
 
 2. We reserve the right to temporarily disable your account if your usage significantly exceeds the average usage of
    other customers of the Service. Of course, we’ll reach out to the account owner before taking any action except in

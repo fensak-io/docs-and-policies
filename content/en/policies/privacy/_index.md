@@ -69,14 +69,20 @@ service providers. This data is deleted when you cancel and uninstall the GitHub
 ### Geolocation Data
 
 We log the IP address you use when accessing our websites, such as [https://fensak.io](https://fensak.io),
-[https://dash.fensak.io](https://dash.fensak.io), and [https://docs.fensak.io](https://docs.fensak.io) for security and
-fraud prevention purposes.
+[https://dash.fensak.io](https://dash.fensak.io), [https://docs.fensak.io](https://docs.fensak.io), and
+[https://fensak.instatus.com](https://fensak.instatus.com) for security and fraud prevention purposes.
 
 ### Website Analytics
 
 We use [Plausible Analytics](https://plausible.io/) to track overall trends in the usage of our website. Plausible
 Analytics collects only aggregated information, which does not allow us to identify any visitor to our website. For more
 information, please visit the [Plausible Analytics Data Policy](https://plausible.io/privacy).
+
+### Notifications
+
+We collect your any one of your email, website, slack channel, etc when you opt in to get updates about our products
+or about the status of our website and apps. This is so that we can send you the information you requested. You can
+unsubscribe from any of the notifications at any time through the original channel where you subscribed for updates.
 
 ### Anti-Bot Assessments
 
@@ -114,12 +120,12 @@ Fensak uses the following third-party Cookies:
 | Cloudflare  | Required | at most 24 hours | Bot management and session affinity for global cache. Refer to the [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/) for more details on the cookies and their use.                                                                                |
 | CookieYes   | Required | 1 year           | Tracking consent information for our Cookie Policy. Refer to the [CookieYes Cookie Policy](https://www.cookieyes.com/cookie-policy) for more details on the cookies and their use.                                                                                      |
 
-
 ### Voluntary Correspondence
 
 When you contact Fensak for help or questions, we keep the correspondence, including your email address,
 to better assist you in the future. We also store information you voluntarily provide, such as survey responses or
 recordings of customer interviews (with your express consent).
+
 
 ## When We Access or Share Your Information
 
@@ -129,6 +135,8 @@ and provide the Services to you. The following is a list of third-party subproce
 * [Deno Deploy](https://docs.deno.com/deploy/manual/privacy-policy). Cloud services provider.
 * [CookieYes](https://www.cookieyes.com/privacy-policy/). Cookie consent service provider.
 * [HubSpot](https://www.hubspot.com/data-privacy/gdpr). Customer sales and ticketing service.
+* [Grafana Labs](https://grafana.com/legal/privacy-policy/). Infrastructure and application monitoring.
+* [Instatus](https://instatus.com/policies/gdpr). Status page provider.
 * [GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-data-protection-agreement). Version control
   software, help forum, and end user platform.
 * [Carrd](https://carrd.co/docs/general/privacy). Landing page provider.

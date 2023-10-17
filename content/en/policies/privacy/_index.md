@@ -5,7 +5,7 @@ type: "docs"
 no_list: true
 ---
 
-*Last updated: Oct 13th, 2023*
+*Last updated: Oct 17th, 2023*
 
 The privacy of your data — and it is your data, not ours! — is a big deal to us. In this policy, we lay out:
 
@@ -136,6 +136,7 @@ and provide the Services to you. The following is a list of third-party subproce
 * [CookieYes](https://www.cookieyes.com/privacy-policy/). Cookie consent service provider.
 * [HubSpot](https://www.hubspot.com/data-privacy/gdpr). Customer sales and ticketing service.
 * [Grafana Labs](https://grafana.com/legal/privacy-policy/). Infrastructure and application monitoring.
+* [Sentry](https://sentry.io/privacy/). Error reporting service.
 * [Instatus](https://instatus.com/policies/gdpr). Status page provider.
 * [GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-data-protection-agreement). Version control
   software, help forum, and end user platform.

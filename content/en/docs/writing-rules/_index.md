@@ -50,14 +50,13 @@ In summary, the following languages are natively supported by Fensak without exp
 
 ## The rule function
 
-Fensak rules are implemented as a single JavaScript function (must be named `main`) that takes in a list of
-`IPatch` (see
-[fensak-io/reng/src/engine/patch_types.ts](https://github.com/fensak-io/reng/blob/main/src/engine/patch_types.ts))
-objects and returns a `boolean` indicating whether the change set should be approved. The function signature is as
-follows:
+Fensak rules are implemented as a single JavaScript function (must be named `main`) that takes in a list of `IPatch`
+objects with an `IChangeSetMetadata` object (see
+[fensak-io/reng/src/engine/patch_types.ts](https://github.com/fensak-io/reng/blob/main/src/engine/patch_types.ts)) and
+returns a `boolean` indicating whether the change set should be approved. The function signature is as follows:
 
 ```typescript
-function main(inp: IPatch[]): boolean
+function main(inp: IPatch[], metadata: IChangeSetMetadata): boolean
 ```
 
 > **IMPORTANT**
@@ -65,11 +64,11 @@ function main(inp: IPatch[]): boolean
 > The rules engine expects to see the `main` function named as such. If you are compiling your code, make sure any
 > minifying routine avoids mangling the `main` function name.
 
-At runtime, the rules engine will call this function with the corresponding `IPatch[]` object generated from the PR
-change set, and then act based on the result of the returned boolean.
+At runtime, the rules engine will call this function with the corresponding `IPatch[]` and `IChangeSetMetadata` objects
+generated from the PR change set, and then act based on the result of the returned boolean.
 
-Note that there is no need to `export` the `main` function in your code. This is because the engine does not support
-modules, and thus is unable to handle exports.
+Note that you should not `export` the `main` function in your code. This is because the engine does not support modules,
+and thus is unable to handle exports.
 
 This also means that the engine is unable to support `import` as well. If you wish to separate out your rules file into
 modules, or want to rely on external dependencies, you will need to use a package bundler that will be able to package
@@ -83,16 +82,17 @@ still use types to check your code in development and testing. To make this work
 with the keywords `fensak remove-start` and `fensak remove-end`. Fensak will strip the code of everything inbetween
 these tags before feeding through the engine so that the engine doesn't complain about the `import` keyword.
 
-Here is an example of importing the `IPatch` and `ILineDiff` types so that you can typecheck your access to
-the attributes of the `inp` object:
+Here is an example of importing the `IPatch`, `IChangeSetMetadata` and `ILineDiff` types so that you can typecheck your
+access to the attributes of the `inp` object:
 
 **Deno**
 ```typescript
 // fensak remove-start
 import type {
+  IChangeSetMetadata,
   ILineDiff,
   IPatch,
-} from "npm:@fensak-io/reng@^1.0.7";
+} from "npm:@fensak-io/reng@^1.1.2";
 // fensak remove-end
 ```
 
@@ -100,6 +100,7 @@ import type {
 ```typescript
 // fensak remove-start
 import type {
+  IChangeSetMetadata,
   ILineDiff,
   IPatch,
 } from "@fensak-io/reng";
@@ -116,12 +117,13 @@ To close this section out, here is the code for the `sample.ts` file in the `.fe
 
 // fensak remove-start
 import type {
+  IChangeSetMetadata,
   IPatch,
-} from "npm:@fensak-io/reng@^1.0.7";
+} from "npm:@fensak-io/reng@^1.1.2";
 // fensak remove-end
 
 // deno-lint-ignore no-unused-vars
-function main(inp: IPatch[]): boolean {
+function main(inp: IPatch[], _metadata: IChangeSetMetadata): boolean {
   const numPatches = inp.length;
   if (numPatches == 0) {
     // No files updated, so approve.
@@ -194,7 +196,7 @@ import {
   PatchOp,
   RuleLogMode,
   runRule,
-} from "npm:@fensak-io/reng@^1.0.7";
+} from "npm:@fensak-io/reng@^1.1.2";
 
 const __dirname = new URL(".", import.meta.url).pathname;
 const rawRuleFn = await Deno.readTextFile(`${__dirname}/rules.ts`);
@@ -237,9 +239,12 @@ Deno.test("rule rejects change to README file", async () => {
         newText: "# Fensak Documentation",
       }],
     }],
-  }
+  };
+  const meta = {
+    sourceBranch: "foo",
+  };
 
-  const result = await runRule(ruleFn, [readmePatch], {
+  const result = await runRule(ruleFn, [readmePatch], meta, {
     // Output console calls to stderr
     { logMode: RuleLogMode.Console },
   });
@@ -263,7 +268,7 @@ Deno.test("rule rejects test PR 1", async () => {
     owner: "fensak-io",
     name: "test-fensak-rules-engine",
   }, 1);
-  const result = await runRule(ruleFn, patches.patchList, { logMode: RuleLogMode.Console });
+  const result = await runRule(ruleFn, patches.patchList, patches.metadata, { logMode: RuleLogMode.Console });
   assert(!result.approve);
 })
 ```
@@ -354,9 +359,12 @@ test("rule rejects change to README file", async () => {
         newText: "# Fensak Documentation",
       }],
     }],
-  }
+  };
+  const meta = {
+    sourceBranch: "foo",
+  };
 
-  const result = await runRule(ruleFn, [readmePatch], {
+  const result = await runRule(ruleFn, [readmePatch], meta, {
     // Output console calls to stderr
     { logMode: RuleLogMode.Console },
   });
@@ -380,7 +388,7 @@ test("rule rejects test PR 1", async () => {
     owner: "fensak-io",
     name: "test-fensak-rules-engine",
   }, 1);
-  const result = await runRule(ruleFn, patches.patchList, { logMode: RuleLogMode.Console });
+  const result = await runRule(ruleFn, patches.patchList, patches.metadata, { logMode: RuleLogMode.Console });
   expect(result.approve).toBe(false);
 })
 ```

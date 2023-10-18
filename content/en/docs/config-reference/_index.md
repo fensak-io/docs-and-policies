@@ -57,6 +57,17 @@ The language that the rules source is written in. This must be one of:
 When omitted, the language is derived from the source file extension. Note that we will always assume ES6 for js files.
 
 
+**requiredRuleFile** *(optional)*
+
+The path (relative to the repo root) to the file to use for the required rules source. Required rules are rules that all
+PRs must pass for the check to pass. When omitted, there is no required rules.
+
+
+**requiredRuleLang** *(optional)*
+
+The language that the required rules source is written in. The behavior is the same as `ruleLang`.
+
+
 **requiredApprovals** *(optional)*
 
 The number of unique approvals from users with write access that are required to pass the check when the auto-approve rule fails.

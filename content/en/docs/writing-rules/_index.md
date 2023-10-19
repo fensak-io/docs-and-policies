@@ -92,7 +92,7 @@ import type {
   IChangeSetMetadata,
   ILineDiff,
   IPatch,
-} from "npm:@fensak-io/reng@^1.1.3";
+} from "npm:@fensak-io/reng@^1.2.1";
 // fensak remove-end
 ```
 
@@ -119,7 +119,7 @@ To close this section out, here is the code for the `sample.ts` file in the `.fe
 import type {
   IChangeSetMetadata,
   IPatch,
-} from "npm:@fensak-io/reng@^1.1.3";
+} from "npm:@fensak-io/reng@^1.2.1";
 // fensak remove-end
 
 // deno-lint-ignore no-unused-vars
@@ -196,7 +196,8 @@ import {
   PatchOp,
   RuleLogMode,
   runRule,
-} from "npm:@fensak-io/reng@^1.1.3";
+  emptyChangeSetMetadata,
+} from "npm:@fensak-io/reng@^1.2.1";
 
 const __dirname = new URL(".", import.meta.url).pathname;
 const rawRuleFn = await Deno.readTextFile(`${__dirname}/rules.ts`);
@@ -240,12 +241,8 @@ Deno.test("rule rejects change to README file", async () => {
       }],
     }],
   };
-  const meta = {
-    sourceBranch: "foo",
-    targetBranch: "bar",
-  };
 
-  const result = await runRule(ruleFn, [readmePatch], meta, {
+  const result = await runRule(ruleFn, [readmePatch], emptyChangeSetMetadata, {
     // Output console calls to stderr
     { logMode: RuleLogMode.Console },
   });
@@ -320,6 +317,7 @@ import {
   PatchOp,
   RuleLogMode,
   runRule,
+  emptyChangeSetMetadata,
 } from "@fensak-io/reng";
 
 const ruleFnSrc = fs.readFileSync(`${__dirname}/rules.ts`, "utf8");
@@ -361,12 +359,8 @@ test("rule rejects change to README file", async () => {
       }],
     }],
   };
-  const meta = {
-    sourceBranch: "foo",
-    targetBranch: "bar",
-  };
 
-  const result = await runRule(ruleFn, [readmePatch], meta, {
+  const result = await runRule(ruleFn, [readmePatch], emptyChangeSetMetadata, {
     // Output console calls to stderr
     { logMode: RuleLogMode.Console },
   });

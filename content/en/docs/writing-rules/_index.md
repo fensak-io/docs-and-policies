@@ -92,7 +92,7 @@ import type {
   IChangeSetMetadata,
   ILineDiff,
   IPatch,
-} from "npm:@fensak-io/reng@^1.2.1";
+} from "npm:@fensak-io/reng@^1.3.0";
 // fensak remove-end
 ```
 
@@ -119,7 +119,7 @@ To close this section out, here is the code for the `sample.ts` file in the `.fe
 import type {
   IChangeSetMetadata,
   IPatch,
-} from "npm:@fensak-io/reng@^1.2.1";
+} from "npm:@fensak-io/reng@^1.3.0";
 // fensak remove-end
 
 // deno-lint-ignore no-unused-vars
@@ -197,7 +197,7 @@ import {
   RuleLogMode,
   runRule,
   emptyChangeSetMetadata,
-} from "npm:@fensak-io/reng@^1.2.1";
+} from "npm:@fensak-io/reng@^1.3.0";
 
 const __dirname = new URL(".", import.meta.url).pathname;
 const rawRuleFn = await Deno.readTextFile(`${__dirname}/rules.ts`);

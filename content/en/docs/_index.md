@@ -13,7 +13,10 @@ guides, references and more.
 
 - **Eager to see Fensak in action?**
 
-  Try the [Getting started guide](getting-started).
+  Try the [Getting started guide](getting-started). We offer two flavors:
+
+    - [Getting started with GitHub](getting-started/github)
+    - [Getting started with BitBucket](getting-started/github)
 
 - **Want to learn more about the .fensak repository?**
 

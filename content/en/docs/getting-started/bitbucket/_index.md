@@ -118,17 +118,21 @@ for a particular result, as well as any runtime console logs that are reported f
 Here is an example of what it looks like for an auto approval:
 
 **Build Result**
+
 ![Screenshot of build result for a successful run](/imgs/getting-started/bitbucket/fensak-check-passed-build-result.png)
 
 **Comment with details**
+
 ![Screenshot of check details for a successful run](/imgs/getting-started/bitbucket/fensak-check-passed.png)
 
 And here is an example of what a failed check looks like:
 
 **Build Result**
+
 ![Screenshot of build result for a failed run](/imgs/getting-started/bitbucket/fensak-check-failed-build-result.png)
 
 **Comment with details**
+
 ![Screenshot of check details for a failed run](/imgs/getting-started/bitbucket/fensak-check-failed.png)
 
 On the failed PR, ask a coworker to submit an approval. A new Fensak check should be automatically triggered, and this

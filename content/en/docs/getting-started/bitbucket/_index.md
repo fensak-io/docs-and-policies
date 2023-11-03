@@ -109,9 +109,6 @@ file.
 When you open a PR with a configured rule, Fensak will automatically create a check against the PR. The check contains
 the results of running the rule against the change set, as well as an evaluation of the number of approvals on the PR.
 
-<!-- TODO -->
-![Screenshot of check run](/imgs/getting-started/bitbucket/fensak-check-run.png)
-
 You should see the check pass on the PR containing only the change to the `README.md` file, while the check should fail
 on the other PR since it will not have any reviews.
 
@@ -120,12 +117,18 @@ for a particular result, as well as any runtime console logs that are reported f
 
 Here is an example of what it looks like for an auto approval:
 
-<!-- TODO -->
+**Build Result**
+![Screenshot of build result for a successful run](/imgs/getting-started/bitbucket/fensak-check-passed-build-result.png)
+
+**Comment with details**
 ![Screenshot of check details for a successful run](/imgs/getting-started/bitbucket/fensak-check-passed.png)
 
 And here is an example of what a failed check looks like:
 
-<!-- TODO -->
+**Build Result**
+![Screenshot of build result for a failed run](/imgs/getting-started/bitbucket/fensak-check-failed-build-result.png)
+
+**Comment with details**
 ![Screenshot of check details for a failed run](/imgs/getting-started/bitbucket/fensak-check-failed.png)
 
 On the failed PR, ask a coworker to submit an approval. A new Fensak check should be automatically triggered, and this
@@ -148,45 +151,43 @@ To enforce the Fensak check, create a branch permission that requires merge chec
 documentation](https://support.atlassian.com/bitbucket-cloud/docs/suggest-or-require-checks-before-a-merge/)
 for information on how to do that.
 
-Here is an example of the minimum setup needed to protect your branch:
+> **NOTE**
+>
+> You must be on a BitBucket Cloud Premium plan to implement merge checks.
 
-![Screenshot of minimal protected branch setup](/imgs/getting-started/bitbucket/minimal-merge-check-setup.png)
-
-In the minimal setup, the following rules are turned on:
-- Require a pull request before merging
-    - This rule ensures that all changes must go through a pull request. No one will be allowed to directly and manually
-      push changes to the trunk branch from the command line.
-    - Note that if you wish to enable Continuous Delivery, you will need to disable the GitHub native required reviewers
-      setting, since Fensak does not make an explicit GitHub approval on the PR.
-
-- Require status checks to pass before merging, with the Fensak status check being required.
-    - This is the core of enforcing the Fensak rules. With this rule, PRs can only be merged if the Fensak check passes.
-
-The following rules are not necessary for enforcing Fensak checks, but are also recommended for further protection:
-- Do not allow bypassing the above settings
-    - This ensures that admins can't bypass the protection rules without turning it off first. Since every change to the
-      protected branch setting is logged, you can easily audit when someone bypasses these rules with this setting
-      turned on.
-
-- Restrict who can push to matching branches
-    - Use this setting to restrict the users can merge PRs. Note that this will need to include your bot users who are
-      opening the PRs if you wish to implement Continuous Delivery (see next section).
+You should turn on the rule `Minimum number of successful builds for the last commit with no failed builds and no in
+progress builds` to ensure that the Fensak check must pass. The minimum can be set to 1.
 
 With these settings, your repository is now protected with Fensak, while allowing some trivial routine changes
 automatically.
 
-But how does the change actually get merged?
+However, there is one more step missing to allow automated Continuous Delivery: enabling `auto-merge` on the PR.
 
 
-## Automatic merges
+## Enable auto-merge on the repo
 
 With the protected branch settings and Fensak rules, you have a framework for allowing changes to go through without
 review. However, the current setup is fairly limiting for Continuous Delivery since the bot that is creating the
 auto-deploy commit will need to wait for Fensak before it can merge the PR.
 
-To avoid this synchronization step, Fensak will automatically attempt to merge PRs that are considered ready.
+To avoid this synchronization step, you can enable automatic merge throught the [merge
+check settings](https://support.atlassian.com/bitbucket-cloud/docs/suggest-or-require-checks-before-a-merge/).
+With auto-merge, the bot can stage the PR to automatically merge at the moment all necessary merge checks for protected
+branches pass. This means that it no longer needs to wait for Fensak, and the PR can automatically merge as soon as the
+Fensak check passes.
 
-<!-- TODO -->
+To allow PRs to be auto-merged, you must first allow auto-merge in the repository settings. This should be under the
+branch restriction settings, as a checkbox labeled `Allow automatic merge when builds pass`.
+
+To implement Continuous Delivery workflows in this model, update your config changing bot to do the following using the
+BitBucket APIs:
+
+1. Make the change that should be auto-deployed to the infrastructure code.
+1. Create a branch, commit the change, and open a PR against trunk containing the change.
+1. Update the PR to auto-merge once checks pass.
+
+And that's it! Fensak and BitBucket should take care of the rest, provided there are no merge conflicts blocking the PR
+from being merged.
 
 
 ## Where to go from here
